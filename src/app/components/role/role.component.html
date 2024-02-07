@@ -1,0 +1,45 @@
+<div class="container-fluid py-4">
+  <div class="row justify-content-between mb-3">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">
+        <i class="bi bi-person-fill-gear"></i>
+        Roles</h1>
+    </div>
+    <div class="col-md-6 text-end">
+      <a href="/createRole" class="btn btn-primary">Crear Rol</a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Aquí se mostrarán los roles -->
+                <tr *ngFor="let role of roles.data">
+                  <td>{{role.name}}</td>
+                  <td>{{role.status}}</td>
+                  <td>
+                    <div class="d-flex">
+                      <button class="btn btn-primary btn-sm me-2" (click)="update(role.id)">Editar</button>
+                      <button class="btn btn-danger btn-sm">Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Otros roles -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container-fluid bg-light py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <form [formGroup]="form">
+            <h1 class="text-center mb-4">
+              <i class="bi bi-door-open-fill"></i> <!-- Icono Bootstrap -->
+              Iniciar Sesión
+            </h1>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico:</label>
+              <input type="text" class="form-control" id="email" formControlName="email" placeholder="Correo electrónico">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña:</label>
+              <div class="input-group">
+                <input [type]="passwordVisible ? 'text' : 'password'" class="form-control" id="password" type="password" formControlName="password" placeholder="Contraseña">
+                <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                  <i class="bi bi-eye"></i> <!-- Icono Bootstrap -->
+                </button>
+              </div>
+            </div>
+            <div class="mb-4 text-center">
+              <button type="submit" (click)="sendRequest($event)"  class="btn btn-primary btn-block">Iniciar Sesión</button>
+            </div>
+            <div class="text-center">
+              <a href="#" class="text-muted">¿Olvidó su contraseña?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="container py-5 mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2 class="text-center mb-0">
+            <i class="bi bi-person-plus"></i> Crear Usuario
+          </h2>
+        </div>
+        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+          <!-- Agrega el formulario de Angular con formGroup -->
+          <form [formGroup]="form" (submit)="sendRequest($event)">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre:</label>
+              <!-- Vincula el campo con el control del formulario -->
+              <input type="text" class="form-control" id="name" placeholder="Ingrese el nombre del usuario" formControlName="name">
+            </div>
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Apellido:</label>
+              <!-- Vincula el campo con el control del formulario -->
+              <input type="text" class="form-control" id="lastname" placeholder="Ingrese el apellido del usuario" formControlName="lastname">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+              <!-- Vincula el campo con el control del formulario -->
+              <input type="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico del usuario" formControlName="email">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña:</label>
+              <!-- Vincula el campo con el control del formulario -->
+              <div class="input-group">
+                <input [type]="passwordVisible ? 'text' : 'password'" class="form-control" id="password" placeholder="Ingrese la contraseña del usuario" formControlName="password">
+                <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                  <i class="bi bi-eye"></i> <!-- Icono Bootstrap -->
+                </button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Estado:</label>
+              <!-- Vincula el campo con el control del formulario -->
+              <select class="form-control" id="status" formControlName="status">
+                <option disabled selected>Seleccionar estado</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="idRole" class="form-label">Rol:</label>
+              <!-- Vincula el campo con el control del formulario -->
+              <select class="form-control" id="idRole" formControlName="idRole">
+                <option disabled selected>Seleccionar rol</option>
+                <!-- Aquí puedes agregar opciones para los roles -->
+                <option *ngFor="let role of roles.data" [value]="role.id">{{ role.name }}</option>
+              </select>
+            </div>
+            <div class="text-center">
+              <!-- Agrega el evento de envío del formulario -->
+              <button type="submit" class="btn btn-primary px-4" (click)="sendRequest($event)">Crear Usuario</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

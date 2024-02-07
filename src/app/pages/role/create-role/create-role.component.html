@@ -1,0 +1,32 @@
+<div class="container py-5 mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2 class="text-center mb-0">
+            <i class="bi bi-person-fill-gear"></i> Crear Rol
+          </h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre:</label>
+              <input type="text" formControlName="name" class="form-control" placeholder="Ingrese el nombre del rol">
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Estado:</label>
+              <select class="form-control" id="status" formControlName="status">
+                <option disabled selected>Seleccionar estado</option>
+                <option>Activo</option>
+                <option>Inactivo</option>
+              </select>
+            </div>
+            <div class="text-center">
+              <button (click)="sendRequest($event)" type="submit" class="btn btn-primary px-4">Crear Rol</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

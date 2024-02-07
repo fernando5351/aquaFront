@@ -1,0 +1,63 @@
+import { Component, OnInit } from '@angular/core';
+import { GetClients } from '../../../models/clients.model';
+import { ClientService } from '../../../services/clients/client.service';
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'app-get-clients',
+  templateUrl: './get-clients.component.html',
+  styleUrls: ['./get-clients.component.scss']
+})
+export class GetClientsComponent implements OnInit {
+
+  clients: GetClients = {
+    statusCode: 0,
+    message: '',
+    data: [{
+      id: 0,
+      name: '',
+      email: '',
+      password: '',
+      dui: '',
+      cellphone: '',
+      otherCellphone: '',
+      createdAt: ''
+    }]
+  };
+
+  constructor(private clientService: ClientService) { }
+
+  ngOnInit(): void {
+    this.getClients();
+  }
+
+  getClients(): void {
+    this.clientService.getClients().subscribe(
+      (data) => {
+        this.clients = data;
+        console.log(this.clients.data);
+      },
+      (error) => {
+        console.error('Error al obtener los clientes', error);
+        if (error.status === 409) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'El cliente ya existe',
+            timer: 2000
+          });
+        }
+      }
+    );
+  }
+
+  searchChange(name: string): void {
+    if (name.length > 0) {
+      this.clientService.search(name).subscribe((response) => {
+        this.clients.data = response.data;
+      });
+    } else {
+      this.getClients();
+    }
+  }
+}
