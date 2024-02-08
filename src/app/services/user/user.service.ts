@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AlertService } from '../alert.service';
 import {environment} from '../../../environments/environment'
 import {HttpClient} from '@angular/common/http';
-import {CreateUser, GetUser, getUsers,User} from '../../models/user.model';
+import {CreateUser, Delete, GetUser, getUsers,User} from '../../models/user.model';
 import {GetRoles} from '../../models/role.model';
 import { finalize } from 'rxjs';
 
@@ -59,7 +59,7 @@ export class UserService {
     )
   };
 
-  deleteUser(id: number){
+  deleteUser(id: any){
     this.loadingServices.showLoading();
     return this.http.delete(`${this.url}/${id}`).pipe(
       finalize(()=>{

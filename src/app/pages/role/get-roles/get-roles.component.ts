@@ -10,6 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class GetRolesComponent {
 
+
+  placeholder = 'Buscar rol...';
+  btn = 'Crear rol';
+  url = '/create-rol';
+
   roles: GetRoles = {
     statusCode: 0,
     message: '',

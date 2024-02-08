@@ -14,7 +14,16 @@ export interface User {
   password: string;
 }
 
-export interface CreateUser extends Omit <User,'id' | 'createdAt'>{};
+export interface CreateUser {
+  name: string;
+  lastname: string;
+  email: string;
+  status: string;
+  password: string;
+  idRole: number;
+}
+
+
 
 export interface UpdateUser {
   name: string;
@@ -35,6 +44,13 @@ export interface GetUser{
   message: string,
   data: User
 }
+
+export interface Delete {
+  statusCode: number,
+  message: string,
+  data: number
+}
+
 
 
 export interface getUsers extends Omit<GetUser, 'data'>{

@@ -18,7 +18,9 @@ import { GetClientsComponent } from './pages/clients/get-clients/get-clients.com
 import { CreateClientsComponent } from './pages/clients/create-clients/create-clients.component';
 import { RoleComponent } from './components/role/role.component';
 import { UserComponent } from './components/user/user.component';
-import {ClientsComponent} from'./components/clients/clients.component'
+import {ClientsComponent} from'./components/clients/clients.component';
+import { SearchComponent } from './components/search/search/search.component';
+import { GetAmountComponent } from './pages/amount/get-amount/get-amount.component'
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import {ClientsComponent} from'./components/clients/clients.component'
     CreateClientsComponent,
     RoleComponent,
     UserComponent,
-    ClientsComponent
+    ClientsComponent,
+    SearchComponent,
+    GetAmountComponent
   ],
   imports: [
     BrowserModule,

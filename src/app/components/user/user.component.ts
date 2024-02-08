@@ -1,5 +1,5 @@
 import { Component ,Input} from '@angular/core';
-import { User, GetUser,UpdateUser, getUsers } from '../../models/user.model';
+import { User, GetUser,UpdateUser, getUsers,Delete } from '../../models/user.model';
 import {GetRoles,GetRole} from '../../models/role.model';
 import { RoleService } from '../../services/role/role.service';
 import { UserService } from '../../services/user/user.service';
@@ -54,6 +54,11 @@ export class UserComponent {
     }
   };
 
+  deleteUser: Delete = {
+    statusCode: 0,
+    message: '',
+    data: 0
+  }
 
   roles: GetRoles = {
     statusCode: 0,
@@ -86,12 +91,52 @@ export class UserComponent {
   refrescarPagina() {
     window.location.reload();
   }
-
-  request(id: number) {
-    return `${this.apiUrl}/${id}`;
+  delete(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro de eliminar este usuario?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(id).subscribe(
+          (response) => {
+            // Manejar la respuesta del servicio
+            console.log(response);
+            if (response == 200) {
+              Swal.fire(
+                'Eliminado',
+                'El usuario ha sido eliminado correctamente.',
+                'success'
+              );
+              // Aquí puedes actualizar la lista de usuarios si es necesario
+            } else {
+              Swal.fire(
+                'Error',
+                'No se pudo eliminar el usuario.',
+                'error'
+              );
+            }
+          },
+          (error) => {
+            console.error('Error al eliminar el usuario', error);
+            Swal.fire(
+              'Error',
+              'Ocurrió un error al eliminar el usuario.',
+              'error'
+            );
+          }
+        );
+      }
+    });
   }
 
- // ...
+
+
 
  update(id: number) {
   this.idUser = this.user.id;
