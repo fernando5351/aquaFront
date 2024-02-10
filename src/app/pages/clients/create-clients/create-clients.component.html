@@ -1,4 +1,4 @@
-<div class="container py-5 mt-3">
+<div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
@@ -8,7 +8,8 @@
           </h2>
         </div>
         <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-          <form>
+          <form [formGroup]="form">
+            <h4>Datos del cliente</h4>
             <div class="mb-3">
               <label for="name" class="form-label">Nombre:</label>
               <input type="text" class="form-control" id="name" placeholder="Ingrese el nombre del cliente">
@@ -26,13 +27,38 @@
               <input type="text" class="form-control" id="phone" placeholder="Ingrese el teléfono del cliente">
             </div>
             <div class="mb-3">
-              <label for="address" class="form-label">Dirección:</label>
-              <input type="text" class="form-control" id="address" placeholder="Ingrese la dirección del cliente">
+              <label for="phone" class="form-label">Cuota a cancelar:</label>
+              <select class="form-control"  name="amount" id="amount">
+                <option >Seleccionar</option>
+                <option value="150.00">$150.00 COP</option>
+              </select>
             </div>
-            <div class="mb-3">
-              <label for="otherAddress" class="form-label">Otra Dirección:</label>
-              <input type="text" class="form-control" id="otherAddress" placeholder="Ingrese otra dirección del cliente">
+            <hr>
+            <h4>Direcciones</h4>
+            <div *ngFor="let address of addresses">
+              <h6>Dirección {{address.id}}:</h6>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb-2">
+                    <label for="address{{address.id}}" class="form-label">Calle:</label>
+                    <input type="text" (input)="addAddress()" formControlName="streetName{{ address.id }}" class="form-control" id="address{{address.id}}" placeholder="Ingrese la dirección del cliente">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="otherAddress{{address.id}}" class="form-label">Poligono N°:</label>
+                    <input type="text" (input)="addAddress()" formControlName="houseNumber{{ address.id }}" class="form-control" id="otherAddress{{address.id}}" placeholder="Ingrese el poligono">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="otherAddress2{{address.id}}" class="form-label">Casa N°:</label>
+                    <input type="text" (input)="addAddress()" class="form-control" formControlName="polygonNumber{{ address.id }}" id="otherAddress2{{address.id}}" placeholder="Ingrese la casa de residencia">
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-primary px-4">Crear Cliente</button>
             </div>

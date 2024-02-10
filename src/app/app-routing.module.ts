@@ -47,7 +47,7 @@ const routes: Routes = [
     canActivate:[AuthenticateGuard]
   },
   {
-    path: 'createClients',
+    path: 'clients/create',
     component: CreateClientsComponent,
     canActivate: [AuthenticateGuard],
   },
