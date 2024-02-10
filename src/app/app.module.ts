@@ -20,7 +20,10 @@ import { RoleComponent } from './components/role/role.component';
 import { UserComponent } from './components/user/user.component';
 import {ClientsComponent} from'./components/clients/clients.component';
 import { SearchComponent } from './components/search/search/search.component';
-import { GetAmountComponent } from './pages/amount/get-amount/get-amount.component'
+import { GetAmountComponent } from './pages/amount/get-amount/get-amount.component';
+import { CreateAmountComponent } from './pages/amount/create-amount/create-amount.component';
+import { AmountComponent } from './components/amount/amount/amount.component';
+import { GetInfoClientComponent } from './pages/clients/get-info-client/get-info-client.component'
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { GetAmountComponent } from './pages/amount/get-amount/get-amount.compone
     UserComponent,
     ClientsComponent,
     SearchComponent,
-    GetAmountComponent
+    GetAmountComponent,
+    CreateAmountComponent,
+    AmountComponent,
+    GetInfoClientComponent
   ],
   imports: [
     BrowserModule,

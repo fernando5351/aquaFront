@@ -24,6 +24,10 @@ export class ClientsComponent {
     }]
   }
 
+  seeInfo(id: number){
+    this.router.navigate([`infoclient/${id}`])
+  }
+
 
 constructor(private router: Router) {}
 }

@@ -1,19 +1,29 @@
 export interface Amount {
-  id: 0,
-  amount: 0,
+  id: number,
+  name: string,
+  amount: number,
   createdAt: string
 }
 
-export interface createAmount extends Omit<Amount, 'id'> {}
+export interface CreateAmount extends Omit<Amount, 'id' | 'createdAt'> {}
+
 
 export interface getAmount {
-  statusCode: 0,
+  statusCode: number,
   message: '',
   data: Amount
 }
 
-export interface updateModel {
-  amount: 0
+
+export interface DeleteAmount {
+  statusCode: number,
+  message: '',
+  data: number
+}
+
+export interface updateAmount {
+  name: string,
+  amount: number
 }
 
 export interface getAmounts extends Omit<getAmount,'data'>{

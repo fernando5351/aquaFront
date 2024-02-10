@@ -8,8 +8,10 @@ import {CreateRoleComponent} from './pages/role/create-role/create-role.componen
 import {GetClientsComponent} from './pages/clients/get-clients/get-clients.component';
 import {CreateClientsComponent} from './pages/clients/create-clients/create-clients.component';
 import {CreateUserComponent} from './pages/user/create-user/create-user.component';
-import {GetRolesComponent} from './pages/role/get-roles/get-roles.component'
-
+import {GetRolesComponent} from './pages/role/get-roles/get-roles.component';
+import {GetAmountComponent} from './pages/amount/get-amount/get-amount.component';
+import {CreateAmountComponent} from './pages/amount/create-amount/create-amount.component';
+import {GetInfoClientComponent} from './pages/clients/get-info-client/get-info-client.component'
 
 const routes: Routes = [
   {
@@ -47,6 +49,11 @@ const routes: Routes = [
     canActivate:[AuthenticateGuard]
   },
   {
+    path:'infoclient/:id',
+    component: GetInfoClientComponent,
+    canActivate:[AuthenticateGuard]
+  },
+  {
     path: 'createClients',
     component: CreateClientsComponent,
     canActivate: [AuthenticateGuard],
@@ -55,6 +62,16 @@ const routes: Routes = [
     path: 'createUsers',
     component: CreateUserComponent,
     canActivate:[AuthenticateGuard]
+  },
+  {
+    path: 'amounts',
+    component: GetAmountComponent,
+    canActivate:[AuthenticateGuard]
+  },
+  {
+    path: 'createAmount',
+    component: CreateAmountComponent,
+    canActivate: [AuthenticateGuard]
   }
 ];
 

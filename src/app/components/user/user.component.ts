@@ -54,11 +54,11 @@ export class UserComponent {
     }
   };
 
-  deleteUser: Delete = {
-    statusCode: 0,
-    message: '',
-    data: 0
-  }
+  // deleteUser: Delete = {
+  //   statusCode: 0,
+  //   message: '',
+  //   data: 0
+  // }
 
   roles: GetRoles = {
     statusCode: 0,
@@ -91,6 +91,7 @@ export class UserComponent {
   refrescarPagina() {
     window.location.reload();
   }
+
   delete(id: number) {
     Swal.fire({
       title: '¿Estás seguro de eliminar este usuario?',
@@ -104,15 +105,17 @@ export class UserComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.deleteUser(id).subscribe(
-          (response) => {
+          (response: Delete) => {
             // Manejar la respuesta del servicio
             console.log(response);
-            if (response == 200) {
+            if (response.statusCode == 200) {
               Swal.fire(
                 'Eliminado',
                 'El usuario ha sido eliminado correctamente.',
                 'success'
-              );
+              ).then(()=>{
+                this.refrescarPagina()
+              })
               // Aquí puedes actualizar la lista de usuarios si es necesario
             } else {
               Swal.fire(
@@ -124,11 +127,19 @@ export class UserComponent {
           },
           (error) => {
             console.error('Error al eliminar el usuario', error);
-            Swal.fire(
-              'Error',
-              'Ocurrió un error al eliminar el usuario.',
-              'error'
-            );
+            if (error.status === 403) {
+              Swal.fire(
+                'Acceso denegado',
+                'Tu usuario no está autorizado para esta acción.',
+                'error'
+              );
+              }else{
+              Swal.fire(
+                'Error',
+                'Ocurrió un error al eliminar el usuario.',
+                'error'
+              );
+            }
           }
         );
       }

@@ -4,7 +4,7 @@ import {environment} from '../../../environments/environment'
 import {HttpClient} from '@angular/common/http';
 import {CreateUser, Delete, GetUser, getUsers,User} from '../../models/user.model';
 import {GetRoles} from '../../models/role.model';
-import { finalize } from 'rxjs';
+import { finalize,Observable } from 'rxjs';
 
 
 @Injectable({
@@ -59,7 +59,7 @@ export class UserService {
     )
   };
 
-  deleteUser(id: any){
+  deleteUser(id: number): Observable<any>{
     this.loadingServices.showLoading();
     return this.http.delete(`${this.url}/${id}`).pipe(
       finalize(()=>{
