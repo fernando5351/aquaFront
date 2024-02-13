@@ -1,3 +1,5 @@
+import { Payment } from "./payment.model";
+
 export interface Client {
   id: number,
   name: string,
@@ -7,8 +9,20 @@ export interface Client {
   cellphone: string,
   amountId: number;
   otherCellphone: number,
+  createdAt: string;
+  Adress?: Address[];
+  Payment?: Payment[];
+}
+
+export interface Address {
+  id: number,
+  idClient: number,
+  streetName: string,
+  houseNumber: string,
+  polygonNumber: string,
   createdAt: string
 }
+
 
 export interface createClient extends Omit<Client,'id' | 'createdAt'>{};
 

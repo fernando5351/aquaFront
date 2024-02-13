@@ -1,0 +1,43 @@
+<div class="container-fluid py-4">
+  <div class="row justify-content-between mb-3">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">
+        <i class="bi bi-cash-coin"></i>
+        Montos</h1>
+    </div>
+    <div class="col-md-6 text-end">
+      <a href="/createAmount" class="btn btn-primary">Crear Monto</a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Monto</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let amount of amounts.data">
+                  <td>{{ amount.name }}</td>
+                  <td>${{ amount.amount.toFixed(2) }}</td>
+                  <td>
+                    <div class="btn-group" role="group" aria-label="Acciones">
+                      <button type="button" class="btn btn-primary btn-sm me-1" (click)="update(amount.id)">Editar</button>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="delete(amount.id)">Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -47,6 +47,7 @@ export class RoleService {
       return this.http.get<GetRoles>(`${this.url}/search/${name}`);
     }
 
+
     pathcRole(dto: Role, id: number): Observable<any> {
       this.loadingService.showLoading();
       return this.http.patch(`${this.url}/${id}`, dto ).pipe(

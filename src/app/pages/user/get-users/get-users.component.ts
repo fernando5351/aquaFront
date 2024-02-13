@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./get-users.component.scss']
 })
 export class GetUsersComponent {
+
+  placeholder = 'Buscar usuario...';
   users: getUsers = {
     statusCode: 0,
     message: '',

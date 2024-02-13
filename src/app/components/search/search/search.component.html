@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+          <form class="form-inline my-2 my-lg-0 ml-auto" [formGroup]="form">
+            <input class="form-control mr-sm-2" type="search" formControlName="search" [placeholder]="Input" (input)="onSearchChange()" >
+          </form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

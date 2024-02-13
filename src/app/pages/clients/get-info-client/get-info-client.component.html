@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div *ngIf="clientInfo" class="row">
+    <div class="col-md-6">
+      <h2>Información del Cliente</h2>
+      <p><strong>Nombre:</strong> {{ clientInfo.data.name }}</p>
+      <p><strong>Email:</strong> {{ clientInfo.data.email }}</p>
+      <p><strong>DUI:</strong> {{ clientInfo.data.dui }}</p>
+      <p><strong>Teléfono:</strong> {{ clientInfo.data.cellphone }}</p>
+      <p><strong>Otro Teléfono:</strong> {{ clientInfo.data.otherCellphone }}</p>
+    </div>
+    <div class="col-md-6">
+      <h2>Direcciones</h2>
+      <ul class="list-group">
+        <li *ngFor="let address of clientInfo.data.Adress" class="list-group-item">
+          <p><strong>Calle:</strong> {{ address.streetName }}</p>
+          <p><strong>Número de Casa:</strong> {{ address.houseNumber }}</p>
+          <p><strong>Número de Polígono:</strong> {{ address.polygonNumber }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="mt-4">
+    <h2>Pagos Realizados</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th>Año</th>
+          <th>Status</th>
+          <th>Mora</th>
+          <th>Total a pagar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of clientInfo?.data?.Payment">
+          <td>{{ payment.month }}</td>
+          <td>{{ payment.year }}</td>
+          <td>
+            {{ payment.status === 'paid' ? 'Pagado' : (payment.status === 'pending' ? 'Pendiente' : 'Mora') }}
+          </td>
+          <td>{{ payment.latePaymentAmount || 0 }}</td>
+          <td>{{ payment.amountPayable + (payment.latePaymentAmount || 0) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

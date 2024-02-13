@@ -10,6 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class GetRolesComponent {
 
+
+  placeholder = 'Buscar rol...';
+  btn = 'Crear rol';
+  url = '/create-rol';
+
   roles: GetRoles = {
     statusCode: 0,
     message: '',
@@ -37,12 +42,12 @@ export class GetRolesComponent {
       },
       (error)=>{
         console.error('error al obtener los roles', error);
-        if (error.status == 409) {
+        if (error.status === 403) {
           Swal.fire({
             position: 'top-end',
             icon: 'warning',
-            title: 'el rol ya existe',
-            timer: 2000
+            title: 'Tu usuario no esta autorizado para esta accion',
+            timer: 2500
           })
         }
       }

@@ -3,7 +3,7 @@ import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {AlertService} from '../alert.service';
 import { finalize } from 'rxjs';
-import { CreateAmount, GetAllAmount, GetOneAmount } from 'src/app/models/amount.model';
+import { CreateAmount, DeleteAmount, GetAllAmount, GetOneAmount } from 'src/app/models/amount.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,13 @@ export class AmountService {
     this.loadingService.showLoading();
     return this.http.patch<GetOneAmount>(`${this.url}/${id}`, dto).pipe(
       finalize(()=> this.loadingService.hideLoading())
+    )
+  }
+
+  deleteAmount(id: number) {
+    this.loadingService.showLoading();
+    return this.http.delete<DeleteAmount>(`${this.url}/${id}`).pipe(
+      finalize(() => this.loadingService.hideLoading())
     )
   }
 

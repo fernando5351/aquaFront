@@ -12,6 +12,14 @@ export interface Get {
   message: string;
 }
 
+export interface UpdateAMount extends Get {
+  data: Amount
+}
+
+export interface DeleteAmount extends Get {
+  data: number
+}
+
 export interface GetAllAmount extends Get {
   data: Amount[];
 }
