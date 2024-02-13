@@ -23,7 +23,11 @@ import { SearchComponent } from './components/search/search/search.component';
 import { GetAmountComponent } from './pages/amount/get-amount/get-amount.component';
 import { CreateAmountComponent } from './pages/amount/create-amount/create-amount.component';
 import { AmountComponent } from './components/amount/amount/amount.component';
-import { GetInfoClientComponent } from './pages/clients/get-info-client/get-info-client.component'
+import { GetInfoClientComponent } from './pages/clients/get-info-client/get-info-client.component';
+import { MonthComponent } from './pages/month/month/month.component';
+import { GetmonthComponent } from './pages/month/getmonth/getmonth.component';
+import { ClosemonthComponent } from './pages/month/closemonth/closemonth.component';
+import {GetonemonthComponent} from './pages/month/getonemonth/getonemonth.component'
 
 
 @NgModule({
@@ -45,7 +49,11 @@ import { GetInfoClientComponent } from './pages/clients/get-info-client/get-info
     GetAmountComponent,
     CreateAmountComponent,
     AmountComponent,
-    GetInfoClientComponent
+    GetInfoClientComponent,
+    MonthComponent,
+    GetmonthComponent,
+    ClosemonthComponent,
+    GetonemonthComponent
   ],
   imports: [
     BrowserModule,

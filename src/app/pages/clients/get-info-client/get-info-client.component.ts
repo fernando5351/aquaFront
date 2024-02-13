@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../../services/clients/client.service'; // Reemplaza 'tu-ruta-del-servicio' con la ruta correcta
-import { GetClient } from '../../../models/clients.model'; // Reemplaza 'tu-ruta-del-modelo' con la ruta correcta
+import { GetClient,Payment } from '../../../models/clients.model'; // Reemplaza 'tu-ruta-del-modelo' con la ruta correcta
 
 @Component({
   selector: 'app-get-info-client',
@@ -11,6 +11,7 @@ import { GetClient } from '../../../models/clients.model'; // Reemplaza 'tu-ruta
 export class GetInfoClientComponent implements OnInit {
   clientId: number = 0;
   clientInfo: GetClient | null = null;
+  totalAmount: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,5 +35,13 @@ export class GetInfoClientComponent implements OnInit {
         console.error('Error al obtener la información del cliente', error);
       }
     );
+  }
+
+  calculateTotalAmount() {
+    if (this.clientInfo && this.clientInfo.data.Payment) {
+      this.totalAmount = this.clientInfo.data.Payment.reduce((acc: number, payment: Payment) => {
+        return acc + payment.amountPayable + (payment.latePaymentAmount || 0);
+      }, 0);
+    }
   }
 }

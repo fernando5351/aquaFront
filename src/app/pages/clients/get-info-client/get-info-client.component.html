@@ -27,13 +27,19 @@
           <th>Mes</th>
           <th>Año</th>
           <th>Status</th>
+          <th>Mora</th>
+          <th>Total a pagar</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let payment of clientInfo?.data?.Payment">
           <td>{{ payment.month }}</td>
           <td>{{ payment.year }}</td>
-          <td>{{ payment.status === 'paid' ? 'Pagado' : 'Pendiente' }}</td>
+          <td>
+            {{ payment.status === 'paid' ? 'Pagado' : (payment.status === 'pending' ? 'Pendiente' : 'Mora') }}
+          </td>
+          <td>{{ payment.latePaymentAmount || 0 }}</td>
+          <td>{{ payment.amountPayable + (payment.latePaymentAmount || 0) }}</td>
         </tr>
       </tbody>
     </table>

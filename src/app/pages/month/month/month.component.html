@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Crear Nuevo Mes</h2>
+  <form>
+    <div class="mb-3">
+      <label for="fromDate" class="form-label">Fecha de Apertura:</label>
+      <input type="date" id="fromDate" class="form-control" [(ngModel)]="selectedFromDate" name="fromDate">
+    </div>
+    <div class="mb-3">
+      <label for="untilDate" class="form-label">Fecha de Cierre:</label>
+      <input type="date" id="untilDate" class="form-control" [(ngModel)]="selectedUntilDate" name="untilDate">
+    </div>
+    <div class="mb-3">
+      <label for="status" class="form-label">Estado:</label>
+      <select id="status" class="form-select" [(ngModel)]="selectedStatus" name="status">
+        <option value="active">Activo</option>
+        <option value="inactive">Inactivo</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="createMonth($event)">Crear Mes</button>
+  </form>
+</div>

@@ -12,6 +12,10 @@ import {GetRolesComponent} from './pages/role/get-roles/get-roles.component';
 import {GetAmountComponent} from './pages/amount/get-amount/get-amount.component';
 import {CreateAmountComponent} from './pages/amount/create-amount/create-amount.component';
 import {GetInfoClientComponent} from './pages/clients/get-info-client/get-info-client.component'
+import {MonthComponent} from './pages//month/month/month.component'
+import {GetmonthComponent} from './pages/month/getmonth/getmonth.component';
+import {ClosemonthComponent} from './pages/month/closemonth/closemonth.component';
+import {GetonemonthComponent} from './pages/month/getonemonth/getonemonth.component'
 
 const routes: Routes = [
   {
@@ -72,6 +76,26 @@ const routes: Routes = [
     path: 'createAmount',
     component: CreateAmountComponent,
     canActivate: [AuthenticateGuard]
+  },
+  {
+    path: 'createMonth',
+    component: MonthComponent,
+    canActivate: [AuthenticateGuard]
+  },
+  {
+    path:'months',
+    component: GetmonthComponent,
+    canActivate:[AuthenticateGuard]
+  },
+  {
+    path: 'closeMonth/:id',
+    component: ClosemonthComponent,
+    canActivate:[AuthenticateGuard]
+  },
+  {
+    path:'oneMonth/:id',
+    component: GetonemonthComponent,
+    canActivate:[AuthenticateGuard]
   }
 ];
 
