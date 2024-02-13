@@ -15,11 +15,12 @@ export class ClientsComponent {
     data: [{
       id: 0,
       name: '',
+      amountId: 0,
       email: '',
       password: '',
       dui: '',
       cellphone: '',
-      otherCellphone: '',
+      otherCellphone: 0,
       createdAt: ''
     }]
   }

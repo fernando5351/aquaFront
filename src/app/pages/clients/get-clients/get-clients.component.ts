@@ -18,9 +18,10 @@ export class GetClientsComponent implements OnInit {
       name: '',
       email: '',
       password: '',
+      amountId: 0,
       dui: '',
       cellphone: '',
-      otherCellphone: '',
+      otherCellphone: 0,
       createdAt: ''
     }]
   };

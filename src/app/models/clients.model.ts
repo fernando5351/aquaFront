@@ -2,14 +2,15 @@ export interface Client {
   id: number,
   name: string,
   email: string,
-  password: string,
+  password?: string,
   dui: string,
   cellphone: string,
-  otherCellphone: string,
+  amountId: number;
+  otherCellphone: number,
   createdAt: string
 }
 
-export interface createClient extends Omit<Client,'id'>{};
+export interface createClient extends Omit<Client,'id' | 'createdAt'>{};
 
 export interface GetClient {
   statusCode: number,
