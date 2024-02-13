@@ -6,7 +6,7 @@
       <p><strong>Email:</strong> {{ clientInfo.data.email }}</p>
       <p><strong>DUI:</strong> {{ clientInfo.data.dui }}</p>
       <p><strong>Teléfono:</strong> {{ clientInfo.data.cellphone }}</p>
-      <p><strong>Otro Teléfono:</strong> {{ clientInfo.data.otherCellphone }}</p>
+
     </div>
     <div class="col-md-6">
       <h2>Direcciones</h2>
@@ -26,7 +26,8 @@
         <tr>
           <th>Mes</th>
           <th>Año</th>
-          <th>Status</th>
+          <th>Estado</th>
+          <th>Cuota</th>
           <th>Mora</th>
           <th>Total a pagar</th>
         </tr>
@@ -38,6 +39,7 @@
           <td>
             {{ payment.status === 'paid' ? 'Pagado' : (payment.status === 'pending' ? 'Pendiente' : 'Mora') }}
           </td>
+          <td>{{payment.amountPayable}}</td>
           <td>{{ payment.latePaymentAmount || 0 }}</td>
           <td>{{ payment.amountPayable + (payment.latePaymentAmount || 0) }}</td>
         </tr>
