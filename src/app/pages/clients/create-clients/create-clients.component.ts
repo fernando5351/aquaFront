@@ -82,14 +82,6 @@ export class CreateClientsComponent implements OnInit {
     }
   }
 
-  onAmountSelected(event: any) {
-    const selectedValue = event.target.value;
-    console.log('Valor seleccionado:', selectedValue);
-    this.form.patchValue({
-      amountId: selectedValue
-    });
-  }
-
   getAllAmount(){
     this.amountService.getAllAmount().subscribe({
       next: (response) => {
@@ -136,10 +128,8 @@ export class CreateClientsComponent implements OnInit {
     const polygonNumber1 = this.form.get('polygonNumber1')?.value;
     if (!streetName1 && !houseNumber1 && !polygonNumber1) {
       this.direction = true;
-      console.log('no tengo info');
     } else {
       this.direction = false;
-      console.log('tengo info ' + streetName1 + " " + houseNumber1 + " " + polygonNumber1);
     }
 
     const dto: createClient = {
@@ -175,13 +165,21 @@ export class CreateClientsComponent implements OnInit {
             houseNumber: houseNumber,
             polygonNumber: polygonNumber
           }
+          console.log(dtoAddress);
 
-          this.addressService.create(dtoAddress)
+          this.addressService.create(dtoAddress).subscribe({
+            next: (response) => {
+              console.log(response);
+            },
+            error: (error) => {
+              console.error(error);
+            }
+          })
         }
 
-        finalize(() => {
-          this.router.navigate(['/clients'])
-        })
+        // finalize(() => {
+        //   this.router.navigate(['/clients'])
+        // })
       },
       error: (err) => {
         console.log(err);

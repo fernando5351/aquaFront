@@ -11,7 +11,7 @@ import { CreateAddress, GetAddress, GetAddresses } from 'src/app/models/address.
 })
 export class AddressService {
 
-  private url = `${environment.API_URL}/address`;
+  private url = `${environment.API_URL}/adress`;
 
   constructor(
     private http: HttpClient,
@@ -20,6 +20,8 @@ export class AddressService {
 
   create(dto: CreateAddress){
     this.loadingService.showLoading();
+    console.log('soy el servicio de creare');
+    console.log(dto);
     return this.http.post<GetAddress>(this.url, dto).pipe(
       finalize(()=> this.loadingService.hideLoading() )
     )
@@ -29,6 +31,13 @@ export class AddressService {
     this.loadingService.showLoading();
     return this.http.get<GetAddresses>(this.url).pipe(
       finalize(()=> this.loadingService.hideLoading() )
+    )
+  }
+
+  deleteClient(id: number) {
+    this.loadingService.showLoading();
+    return  this.http.delete(`${this.url}/${id}`).pipe(
+      finalize(() => this.loadingService.hideLoading())
     )
   }
 
