@@ -32,6 +32,7 @@ import { PaymentComponent } from './pages/pay/payment/payment.component';
 import { RecoveryComponent } from './pages/recovery/recovery/recovery.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password/recovery-password.component'
 import Swal from 'sweetalert2';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import Swal from 'sweetalert2';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgApexchartsModule
   ],
   providers: [
     {

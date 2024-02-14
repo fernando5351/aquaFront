@@ -40,7 +40,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
  import {environment} from 'src/environments/environment';
-import { Pay, Payment } from '../../models/payment.model';
+import { Pay, Payment, getPayment } from '../../models/payment.model';
 import { AlertService } from '../alert.service';
 import { GetClient } from 'src/app/models/clients.model';
 
@@ -73,6 +73,15 @@ export class PaymentService {
         this.loadingService.hideLoading();
       })
     );
+  }
+
+  getAllPayment() {
+    this.loadingService.showLoading();
+    return this.http.get<getPayment>(`${this.url}/payment`).pipe(
+      finalize(() => {
+        this.loadingService.hideLoading()
+      })
+    )
   }
 }
 

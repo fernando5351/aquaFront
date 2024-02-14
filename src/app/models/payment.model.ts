@@ -15,9 +15,15 @@ export interface Payment {
   monthlyFeesId: number;
   createdAt: string;
   canceledIn: string | null;
-  paymentMonthlyFee: PaymentMonthlyFee;
+  paymentMonthlyFee?: PaymentMonthlyFee;
   Client?: Client;
   Adress?: Address
+}
+
+export interface getPayment {
+  statusCode: number;
+  message: string;
+  data: Payment[];
 }
 
 export interface PaymentMonthlyFee {
