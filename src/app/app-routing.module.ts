@@ -15,7 +15,8 @@ import {GetInfoClientComponent} from './pages/clients/get-info-client/get-info-c
 import {MonthComponent} from './pages//month/month/month.component'
 import {GetmonthComponent} from './pages/month/getmonth/getmonth.component';
 import {ClosemonthComponent} from './pages/month/closemonth/closemonth.component';
-import {GetonemonthComponent} from './pages/month/getonemonth/getonemonth.component'
+import {GetonemonthComponent} from './pages/month/getonemonth/getonemonth.component';
+import {PaymentComponent} from './pages/pay/payment/payment.component'
 
 const routes: Routes = [
   {
@@ -96,6 +97,10 @@ const routes: Routes = [
     path:'oneMonth/:id',
     component: GetonemonthComponent,
     canActivate:[AuthenticateGuard]
+  },
+  {
+    path:'pay/:id',
+    component: PaymentComponent
   }
 ];
 

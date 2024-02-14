@@ -20,6 +20,10 @@
     </div>
   </div>
   <div class="mt-4">
+    <div class="mt-4">
+      <div class="d-flex justify-content-end mb-3">
+        <a *ngIf="clientId" class="btn btn-primary" [routerLink]="['/pay', clientId]">Pagar</a>
+      </div>
     <h2>Pagos Realizados</h2>
     <table class="table table-striped">
       <thead>
