@@ -101,6 +101,10 @@ const routes: Routes = [
   {
     path:'pay/:id',
     component: PaymentComponent
+  },
+  {
+    path: 'pay',
+    component: PaymentComponent
   }
 ];
 

@@ -8,6 +8,7 @@ import { createClient } from 'src/app/models/clients.model';
 import { AddressService } from 'src/app/services/address/address.service';
 import { AmountService } from 'src/app/services/amount/amount.service';
 import { ClientService } from 'src/app/services/clients/client.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-clients',
@@ -177,12 +178,42 @@ export class CreateClientsComponent implements OnInit {
           })
         }
 
-        // finalize(() => {
-        //   this.router.navigate(['/clients'])
-        // })
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Cliente registrado exitosamente",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        this.router.navigate(['/clients']);
       },
       error: (err) => {
-        console.log(err);
+        if (err.status == 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Correo y Dui deben ser unicos",
+            showConfirmButton: false,
+            timer: 1200
+          });
+        }
+        if (err.status == 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Peticion erronea, verifica los datos",
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 2000
+          });
+        }
+        if (err.status >= 500) {
+          Swal.fire({
+            icon: "info",
+            title: "¡ups!, ocurrio un error en el servidor",
+            showConfirmButton: false,
+            timer: 1200
+          });
+        }
       }
     })
 

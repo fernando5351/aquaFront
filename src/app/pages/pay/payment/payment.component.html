@@ -1,1 +1,76 @@
-<p>payment works!</p>
+<div class="container py-2">
+  <form class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Pagos</h2>
+          <div>
+            <div class="card mb-5">
+              <div class="card-body">
+                <p *ngIf="invoiceCod !== undefined">Numero de factura: {{ invoiceCod }}</p>
+                <table class="table table-responsive text-lg-center">
+                  <thead>
+                      <tr>
+                          <th>Mes</th>
+                          <th>Direccion</th>
+                          <th>Cuota</th>
+                          <th>Mora</th>
+                          <th>Monto a Pagar</th>
+                          <th>Omitir</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let payment of payments">
+                          <td>{{ payment.month }}</td>
+                          <td>{{ 'pasaje ' + payment.Adress?.streetName + ' poligono #' + payment.Adress?.polygonNumber + ' casa# ' + payment.Adress?.houseNumber }}</td>
+                          <td>${{ payment.amountPayable }}</td>
+                          <td>${{ payment.latePaymentAmount }}</td>
+                          <td>${{ payment.totalAmount }}</td>
+                          <td><button type="button" (click)="removeRow(payment)" class="btn btn-danger">Quitar</button></td>
+                      </tr>
+                  </tbody>
+              </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Cliente</h2>
+          <div class="mb-2">
+            <label for="name" class="form-label">Nombre:</label>
+            <input type="text" id="name" class="form-control" [value]="client.name" [disabled]="client.name !== ''">
+          </div>
+          <div class="mb-2">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" id="email" class="form-control" [value]="client.email" [disabled]="client.email !== ''">
+          </div>
+          <div class="mb-2" *ngIf="payments !== undefined">
+            <label for="email" class="form-label">Direciones:</label>
+            <input *ngFor="let address of client.Adress" type="text" id="email" class="form-control" [value]="'pasaje ' + address.streetName + ' poligono #' + address.polygonNumber + ' casa# ' + address.houseNumber" [disabled]="address.polygonNumber !== ''">
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <label for="dui" class="form-label">Dui:</label>
+              <input type="text" id="dui" class="form-control" [value]="client.name" [disabled]="client.dui !== ''">
+            </div>
+            <div class="col-md-6">
+              <label for="cellphone" class="form-label">Telefono:</label>
+              <input type="text" id="cellphone" class="form-control" [value]="client.cellphone" [disabled]="client.cellphone !== ''">
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="total" class="form-label">Total:</label>
+            <input type="text" id="total" class="form-control" [value]="'$'+totalPay?.toFixed(2)">
+          </div>
+          <button class="btn btn-primary mx-3 my-2" (click)="pay()">Cobrar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

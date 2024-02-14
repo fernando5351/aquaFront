@@ -40,8 +40,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
  import {environment} from 'src/environments/environment';
-import { Payment } from '../../models/payment.model';
+import { Pay, Payment } from '../../models/payment.model';
 import { AlertService } from '../alert.service';
+import { GetClient } from 'src/app/models/clients.model';
 
 
 @Injectable({
@@ -49,25 +50,25 @@ import { AlertService } from '../alert.service';
 })
 export class PaymentService {
 
-  private url = `${environment.API_URL}/payment`;
+  private url = `${environment.API_URL}`;
 
   constructor(
     private http: HttpClient,
     private loadingService: AlertService
   ) { }
 
-  pay(dto: Payment, id: number): Observable<any> {
+  pay(dto: Pay, id: number): Observable<any> {
     this.loadingService.showLoading();
-    return this.http.patch(`${this.url}/${id}`, dto).pipe(
+    return this.http.patch(`${this.url}/payment/${id}`, dto).pipe(
       finalize(() => {
         this.loadingService.hideLoading()
       })
     )
   }
 
-  getPaymentsByClientId(clientId: number): Observable<Payment[]> {
+  getPaymentsByClientId(clientId: number) {
     this.loadingService.showLoading();
-    return this.http.get<Payment[]>(`http://localhost:3000/api/v1/clients/${clientId}`).pipe(
+    return this.http.get<GetClient>(`${this.url}/clients/${clientId}`).pipe(
       finalize(() => {
         this.loadingService.hideLoading();
       })
