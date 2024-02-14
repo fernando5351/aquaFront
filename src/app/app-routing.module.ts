@@ -16,7 +16,9 @@ import {MonthComponent} from './pages//month/month/month.component'
 import {GetmonthComponent} from './pages/month/getmonth/getmonth.component';
 import {ClosemonthComponent} from './pages/month/closemonth/closemonth.component';
 import {GetonemonthComponent} from './pages/month/getonemonth/getonemonth.component';
-import {PaymentComponent} from './pages/pay/payment/payment.component'
+import {PaymentComponent} from './pages/pay/payment/payment.component';
+import{RecoveryComponent} from './pages/recovery/recovery/recovery.component';
+import{RecoveryPasswordComponent} from './pages/recovery-password/recovery-password/recovery-password.component'
 
 const routes: Routes = [
   {
@@ -101,6 +103,14 @@ const routes: Routes = [
   {
     path:'pay/:id',
     component: PaymentComponent
+  },
+  {
+    path:'recovery',
+    component: RecoveryComponent
+  },
+  {
+    path: 'recovery-password',
+    component: RecoveryPasswordComponent
   }
 ];
 
