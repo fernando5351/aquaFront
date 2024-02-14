@@ -31,6 +31,7 @@ import {GetonemonthComponent} from './pages/month/getonemonth/getonemonth.compon
 import { PaymentComponent } from './pages/pay/payment/payment.component';
 import { RecoveryComponent } from './pages/recovery/recovery/recovery.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password/recovery-password.component'
+import Swal from 'sweetalert2';
 
 
 @NgModule({
@@ -69,7 +70,15 @@ import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-pa
     FormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: 'Swal',
+      useValue: Swal
+    },
   ],
   bootstrap: [AppComponent]
 })
