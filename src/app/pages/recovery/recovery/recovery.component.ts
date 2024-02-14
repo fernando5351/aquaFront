@@ -30,10 +30,17 @@ export class RecoveryComponent {
 
       this.recoveryService.recoveryAccount(email).subscribe({
         next: (data) => {
-          // console.log(data);
+           console.log(data);
         },
         error: (error) => {
-          // console.log(error);
+           console.log(error);
+           if (error.status == 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Revisa tu bandeja de correo',
+              text: 'Se envió un correo de recuperación'
+            });
+           }
         }
       })
 
