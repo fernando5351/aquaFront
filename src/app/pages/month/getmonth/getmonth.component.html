@@ -22,11 +22,10 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Aquí se mostrarán los meses -->
                 <tr *ngFor="let month of months">
                   <td>{{ month.from | date:'dd/MM/yyyy' }}</td>
                   <td>{{ month.untill | date:'dd/MM/yyyy' }}</td>
-                  <td>{{ month.status }}</td>
+                  <td>{{ month.status  === 'active' ? 'Activo' : 'Inactivo'}}</td>
                   <td>
                     <button *ngIf="month.status === 'active'" class="btn btn-danger btn-sm" (click)="closeMonth(month.id)">Cerrar Fecha</button>
                     <button *ngIf="month.status === 'inactive'" class="btn btn-success btn-sm" (click)="detailsMonth(month.id)" >Detalles de mes</button>

@@ -45,7 +45,7 @@ export class ClientService {
     );
   }
 
-  search(name: string): Observable<GetClients> {
+  search(name: string) {
     return this.http.get<GetClients>(`${this.url}/search/${name}`);
   }
 

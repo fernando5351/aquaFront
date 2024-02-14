@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MonthService } from '../../../services/month/month.service';
 import { GetMonth, Month } from '../../../models/month.model';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-closemonth',
@@ -15,7 +16,8 @@ export class ClosemonthComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private monthService: MonthService
+    private monthService: MonthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,15 +29,27 @@ export class ClosemonthComponent {
 
   closeMonth() {
     this.monthService.closeMonth(this.monthId).subscribe(
-      (data: GetMonth) => {
-        this.month = data;
-        console.log(this.month);
+      (data: any) => {
+        if (data.statusCode === 200) {
+          // Si el status es 200, mostrar ventana modal de éxito
+          Swal.fire('Mes cerrado exitosamente', '', 'success').then(() => {
+            // Redirigir a la URL '/months'
+            this.router.navigate(['/months']);
+          });
+        } else {
+          // Si hay un error, mostrar ventana modal con el mensaje del error
+          Swal.fire('Error', data.message, 'error');
+        }
       },
       (error) => {
-        console.error('Error al obtener los detalles del mes', error);
+        console.error('Error al cerrar el mes', error);
+        // Mostrar ventana modal con el mensaje del error
+        Swal.fire('Error', 'Ocurrió un error al cerrar el mes', 'error');
       }
     );
   }
+
+
 
 
 }

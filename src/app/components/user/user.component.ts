@@ -146,9 +146,6 @@ export class UserComponent {
     });
   }
 
-
-
-
  update(id: number) {
   this.idUser = this.user.id;
 
