@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../../services/clients/client.service';
 import { GetClient } from '../../../models/clients.model';
 import { Payment } from 'src/app/models/payment.model';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-get-info-client',
@@ -16,6 +17,7 @@ export class GetInfoClientComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private clientService: ClientService
   ) { }
 
@@ -44,5 +46,9 @@ export class GetInfoClientComponent implements OnInit {
         return acc + payment.amountPayable + (payment.latePaymentAmount || 0);
       }, 0);
     }
+  }
+
+  pay(id: number){
+    this.router.navigate([`/pay/${id}`]);
   }
 }
