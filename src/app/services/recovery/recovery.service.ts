@@ -29,8 +29,8 @@ export class RecoveryService {
 
   recoveryPassword(password: string, token: string){
     this.loadingService.showLoading();
-     console.log(password);
-     console.log(`${this.apiUrl}/auth/recovery-password?token=${token}`);
+    //  console.log(password);
+    //  console.log(`${this.apiUrl}/auth/recovery-password?token=${token}`);
     return this.http.post(`${this.apiUrl}/auth/recovery-password?token=${token}`, { password }).pipe(
       finalize(() => {
         this.loadingService.hideLoading();

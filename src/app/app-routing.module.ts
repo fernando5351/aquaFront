@@ -105,16 +105,16 @@ const routes: Routes = [
     component: PaymentComponent
   },
   {
-    path: 'pay',
-    component: PaymentComponent
-  },
-  {
     path:'recovery',
     component: RecoveryComponent
   },
   {
     path: 'recovery-password',
     component: RecoveryPasswordComponent
+  },
+  {
+    path: 'pay',
+    component: PaymentComponent
   }
 ];
 
