@@ -1,8 +1,8 @@
 import { Component,Input } from '@angular/core';
 import {GetClients} from '../../models/clients.model';
-import { Router } from '@angular/router';
-import {ClientService} from '../../services/clients/client.service';
-import Swal from 'sweetalert2'
+import { Router } from '@angular/router'
+import Swal from 'sweetalert2';
+import { ClientService } from 'src/app/services/clients/client.service';
 
 @Component({
   selector: 'app-clients',
@@ -23,7 +23,7 @@ export class ClientsComponent {
       dui: '',
       cellphone: '',
       otherCellphone: 0,
-      createdAt: ''
+      createdAt: new Date()
     }]
   }
 
@@ -37,10 +37,10 @@ export class ClientsComponent {
     this.router.navigate([`infoclient/${id}`])
   }
 
-  delete(id: number) {
+  deleteCliend(id:number){
     Swal.fire({
-      title: '¿Estás seguro de eliminar este cliente?',
-      text: '¡No podrás revertir esto!',
+      title: 'Estas seguro de eliminar  este cliente?',
+      text: "No podras revertir esta accion!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -58,7 +58,7 @@ export class ClientsComponent {
                 'El cliente ha sido eliminado correctamente.',
                 'success'
               ).then(() => {
-                // Aquí puedes actualizar la lista de clientes si es necesario
+                this.refreshPage();
               });
             } else {
               Swal.fire(

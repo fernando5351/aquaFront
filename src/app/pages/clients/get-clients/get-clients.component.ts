@@ -25,7 +25,7 @@ export class GetClientsComponent implements OnInit {
       dui: '',
       cellphone: '',
       otherCellphone: 0,
-      createdAt: ''
+      createdAt: new Date()
     }]
   };
 

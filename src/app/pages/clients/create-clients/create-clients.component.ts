@@ -8,6 +8,7 @@ import { createClient } from 'src/app/models/clients.model';
 import { AddressService } from 'src/app/services/address/address.service';
 import { AmountService } from 'src/app/services/amount/amount.service';
 import { ClientService } from 'src/app/services/clients/client.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-clients',
@@ -82,14 +83,6 @@ export class CreateClientsComponent implements OnInit {
     }
   }
 
-  onAmountSelected(event: any) {
-    const selectedValue = event.target.value;
-    console.log('Valor seleccionado:', selectedValue);
-    this.form.patchValue({
-      amountId: selectedValue
-    });
-  }
-
   getAllAmount(){
     this.amountService.getAllAmount().subscribe({
       next: (response) => {
@@ -136,10 +129,8 @@ export class CreateClientsComponent implements OnInit {
     const polygonNumber1 = this.form.get('polygonNumber1')?.value;
     if (!streetName1 && !houseNumber1 && !polygonNumber1) {
       this.direction = true;
-      console.log('no tengo info');
     } else {
       this.direction = false;
-      console.log('tengo info ' + streetName1 + " " + houseNumber1 + " " + polygonNumber1);
     }
 
     const dto: createClient = {
@@ -175,16 +166,54 @@ export class CreateClientsComponent implements OnInit {
             houseNumber: houseNumber,
             polygonNumber: polygonNumber
           }
+          console.log(dtoAddress);
 
-          this.addressService.create(dtoAddress)
+          this.addressService.create(dtoAddress).subscribe({
+            next: (response) => {
+              console.log(response);
+            },
+            error: (error) => {
+              console.error(error);
+            }
+          })
         }
 
-        finalize(() => {
-          this.router.navigate(['/clients'])
-        })
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Cliente registrado exitosamente",
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+        this.router.navigate(['/clients']);
       },
       error: (err) => {
-        console.log(err);
+        if (err.status == 409) {
+          Swal.fire({
+            icon: "error",
+            title: "Correo y Dui deben ser unicos",
+            showConfirmButton: false,
+            timer: 1200
+          });
+        }
+        if (err.status == 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Peticion erronea, verifica los datos",
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 2000
+          });
+        }
+        if (err.status >= 500) {
+          Swal.fire({
+            icon: "info",
+            title: "¡ups!, ocurrio un error en el servidor",
+            showConfirmButton: false,
+            timer: 1200
+          });
+        }
       }
     })
 

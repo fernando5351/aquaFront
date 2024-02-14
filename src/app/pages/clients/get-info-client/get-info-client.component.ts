@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ClientService } from '../../../services/clients/client.service'; // Reemplaza 'tu-ruta-del-servicio' con la ruta correcta
-import { GetClient } from '../../../models/clients.model'; // Reemplaza 'tu-ruta-del-modelo' con la ruta correcta
+import { ClientService } from '../../../services/clients/client.service';
+import { GetClient } from '../../../models/clients.model';
 import { Payment } from 'src/app/models/payment.model';
 import { Router} from '@angular/router';
 

@@ -110,7 +110,10 @@ const routes: Routes = [
   },
   {
     path: 'recovery-password',
-    component: RecoveryPasswordComponent
+    component: RecoveryPasswordComponent,
+  },{
+    path: 'pay',
+    component: PaymentComponent
   }
 ];
 

@@ -31,19 +31,15 @@ export class ClosemonthComponent {
     this.monthService.closeMonth(this.monthId).subscribe(
       (data: any) => {
         if (data.statusCode === 200) {
-          // Si el status es 200, mostrar ventana modal de éxito
           Swal.fire('Mes cerrado exitosamente', '', 'success').then(() => {
-            // Redirigir a la URL '/months'
             this.router.navigate(['/months']);
           });
         } else {
-          // Si hay un error, mostrar ventana modal con el mensaje del error
           Swal.fire('Error', data.message, 'error');
         }
       },
       (error) => {
         console.error('Error al cerrar el mes', error);
-        // Mostrar ventana modal con el mensaje del error
         Swal.fire('Error', 'Ocurrió un error al cerrar el mes', 'error');
       }
     );
