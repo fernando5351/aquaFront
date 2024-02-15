@@ -1,7 +1,10 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexStroke, ApexDataLabels, ApexYAxis, ApexTitleSubtitle, ApexLegend, ApexNonAxisChartSeries, ApexResponsive } from 'ng-apexcharts';
-import { Payment, Report } from 'src/app/models/payment.model';
+import { Component, OnInit } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ApexChart, ApexNonAxisChartSeries, ApexResponsive } from 'ng-apexcharts';
+import { Report } from 'src/app/models/payment.model';
+import { MonthService } from 'src/app/services/month/month.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
+import Swal from 'sweetalert2';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -9,6 +12,11 @@ export type ChartOptions = {
   responsive: ApexResponsive[];
   labels: any;
 };
+
+interface status {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -18,42 +26,89 @@ export type ChartOptions = {
 export class HomeComponent implements OnInit{
 
   chartOptions!: ChartOptions;
+  status: status[] = [
+    {value: 'paid', viewValue: 'Pagado'},
+    {value: 'pending', viewValue: 'Pendiente'},
+    {value: 'mora', viewValue: 'Mora'},
+  ];
   report: Report = {
     totalAmountCollected: 0,
     summary: {
       mora: 0,
       paid: 0,
       pending: 0
-    }
+    },
+    payments: [{
+      id: 0,
+      invoiceCod: '',
+      clientId: 0,
+      addressId: 0,
+      month: '',
+      year: 0,
+      amountPayable: 0,
+      latePaymentAmount: 0,
+      totalAmount: 0,
+      status: '',
+      monthlyFeesId: 0,
+      createdAt: '',
+      canceledIn: '',
+      paymentMonthlyFee: {
+        id: 0,
+        from: '',
+        untill: '',
+        status: '',
+        createdAt: '',
+      },
+      Clients: {
+        id: 0,
+        name: '',
+        email: '',
+        dui: '',
+        cellphone: '',
+        amountId: 0,
+        createdAt: new Date()
+      }
+    }]
   }
 
   selectedStartDate!: string | null;
   selectedEndDate!: string | null;
+  // maxDate: Date = new Date();
+  maxDate = '2024-10-10';
+  minDate = '2024-01-01';
 
   dataSerie: number[] = [];
   constructor(
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private monthlyFee: MonthService
   ) {}
 
   ngOnInit(): void {
     this.actualizarGraficos();
 
-    let date = new Date();
-    let nowDay = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
+    this.monthActive();
+  }
 
-    let previusMonth;
-    if (month === 1) {
-        month = 12;
-        year = year - 1;
-    } else {
-        previusMonth = month - 1;
-    }
-
-    const startDate = new Date(`${year}-${previusMonth}-${nowDay}`);
-    const endDate = new Date(`${year}-${month}-${nowDay}`);
-    this.getPayments(startDate, endDate);
+  monthActive(){
+    this.monthlyFee.getMonths().subscribe({
+      next: (response) => {
+        response.data.forEach(month => {
+          if(month.status === 'active'){
+            const from = month.from;
+            const untill = month.untill;
+            this.reportSale(from, untill);
+          }
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: "error",
+          title: 'Ocurrio un error',
+          text: error.message || "Verifique su conexión a internet",
+          timer: 1200
+        })
+      }
+    })
   }
 
   actualizarGraficos() {
@@ -80,6 +135,16 @@ export class HomeComponent implements OnInit{
     };
   }
 
+  private formatDate(date: Date): string | null {
+    if (date instanceof Date && !isNaN(date.getTime())) {
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return null;
+  }
+
   startDateChanged(event: MatDatepickerInputEvent<any>): void {
     this.selectedStartDate = this.formatDate(event.value);
     this.filterSales();
@@ -90,11 +155,24 @@ export class HomeComponent implements OnInit{
     this.filterSales();
   }
 
-  getPayments(from: Date, untill: Date) {
+  reportSale(from: Date, untill: Date) {
     this.paymentService.getReportPayment(from, untill).subscribe((response) => {
       this.report = response.data;
-      this.dataSerie.push(this.report.summary.mora)
+      console.log(response);
+
+      this.dataSerie = [];
+      this.dataSerie.push(this.report.summary.mora);
+      this.dataSerie.push(this.report.summary.paid);
+      this.dataSerie.push(this.report.summary.pending);
       this.actualizarGraficos();
     })
+  }
+
+  private filterSales(): void {
+    if (this.selectedStartDate !== null && this.selectedEndDate !== null) {
+      let from  = new Date(this.selectedStartDate);
+      let until = new Date(this.selectedEndDate);
+      this.reportSale(from, until);
+    }
   }
 }

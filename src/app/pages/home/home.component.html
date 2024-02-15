@@ -1,8 +1,79 @@
-<div id="pie">
-  <apx-chart
-  [series]="chartOptions.series"
-  [chart]="chartOptions.chart"
-  [labels]="chartOptions.labels"
-  [responsive]="chartOptions.responsive"
-  ></apx-chart>
+<div class="container rounded  border-bottom justify-content-lg-start d-sm-inline-flex">
+  <div style="width: 510px; display: block;">
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="startDatePicker" placeholder="Fecha Inicial" [max]="maxDate" [min]="minDate" (dateChange)="startDateChanged($event)">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="endDatePicker" placeholder="Fecha Final" [max]="maxDate" [min]="minDate" (dateChange)="endDateChanged($event)">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div style="width: 510px; display: block; margin-top: 6px;">
+    <mat-form-field>
+      <mat-label>Estado</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let status of status" [value]="status.value">{{status.viewValue}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 py-3">
+      <div class="card text-center">
+        <div class="card-header">
+          <h4 class="text-xxl-center">RESUMEN DE OPERACIONES DE ESTADOS</h4>
+        </div>
+        <div class="card-body d-flex justify-content-center align-items-center">
+          <apx-chart class="mx-auto"
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [responsive]="chartOptions.responsive">
+          </apx-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 py-3">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Cuentas de clientes</h2>
+          <div>
+            <div class="card mb-4">
+              <div class="card-body">
+                <div style="max-height: 240px;" class="overflow-y-auto">
+                  <table class="table table-responsive text-lg-start">
+                    <thead class="thead-dark mr-n5">
+                      <th>Nombre</th>
+                      <th>Estado</th>
+                      <th>Monto</th>
+                      <th>Mora</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let payment of report.payments">
+                        <td>{{payment.Clients?.name}}</td>
+                        <td>
+                          {{ payment.status === 'pending' ? 'Pendiente' : (payment.status === 'paid' ? 'Pagado' : payment.status) }}
+                        </td>
+                        <td>${{payment.amountPayable}}</td>
+                        <td>${{payment.latePaymentAmount}}</td>
+                        <td>${{payment.totalAmount}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

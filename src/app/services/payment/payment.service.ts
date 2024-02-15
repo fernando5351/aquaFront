@@ -47,16 +47,18 @@ export class PaymentService {
     )
   }
 
-  getReportPayment(from: Date, untill: Date) {
+  getReportPayment(from: Date, untill: Date, status?: 'paid'|'mora'|'pending'|undefined) {
     this.loadingService.showLoading();
-    const params = new HttpParams()
-      .set('from', from.toISOString())
-      .set('until', untill.toISOString());
-    return this.http.get<getReport>(`${this.url}/report`, { params }).pipe(
+    let api = `${this.url}/payment/report?from=${from}&untill=${untill}`;
+    if (status !== undefined) {
+      api = `${this.url}/payment/report?from=${from}&untill=${untill}&status=${status}`
+    }
+    return this.http.get<getReport>(api).pipe(
       finalize(() => {
         this.loadingService.hideLoading()
       })
     )
   }
+
 }
 

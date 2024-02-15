@@ -27,29 +27,30 @@ export class MonthComponent {
     this.monthService.createMonth(dto).subscribe(
       (response) => {
         console.log('Mes creado exitosamente:', response);
-        // Muestra la ventana modal de SweetAlert2
         Swal.fire({
           icon: 'success',
           title: '¡Mes creado exitosamente!',
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          // Redirige al usuario a la URL '/months'
           this.router.navigate(['/months']);
         });
       },
       (error) => {
         console.error('Error al crear el mes:', error);
-        // Verifica si el error tiene status 400
         if (error.status === 400) {
-          // Muestra el mensaje de error en la ventana modal de SweetAlert2
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: error.error.message // Suponiendo que el mensaje de error está en el campo 'message' del objeto de error
+            text: error.error.message
           });
-        } else {
-          // Otro manejo de errores
+        }
+        if (error.status === 409) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Los meses de apertura y cierre deben ser unicos'
+          });
         }
       }
     );

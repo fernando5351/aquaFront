@@ -16,7 +16,7 @@ export interface Payment {
   createdAt: string;
   canceledIn: string | null;
   paymentMonthlyFee?: PaymentMonthlyFee;
-  Client?: Client;
+  Clients?: Client;
   Adress?: Address
 }
 
@@ -29,10 +29,11 @@ export interface getPayment {
 export interface Report {
   totalAmountCollected: number,
   summary: {
-      paid: number,
-      mora: number,
-      pending: number
-  }
+    paid: number,
+    mora: number,
+    pending: number
+  },
+  payments: Payment[]
 }
 
 export interface getReport extends  Omit<getPayment, 'data'>{

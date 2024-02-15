@@ -2,6 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +40,7 @@ import { RecoveryComponent } from './pages/recovery/recovery/recovery.component'
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password/recovery-password.component'
 import Swal from 'sweetalert2';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -69,7 +77,13 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     {
