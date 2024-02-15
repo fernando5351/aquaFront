@@ -6,11 +6,11 @@
         Clientes</h1>
     </div>
     <div class="col-md-6 text-end">
-      <a href="/createClient" class="btn btn-primary">Crear Cliente</a>
+      <a href="clients/create" class="btn btn-primary">Crear Cliente</a>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
@@ -21,7 +21,6 @@
                   <th>Email</th>
                   <th>DUI</th>
                   <th>Teléfono</th>
-                  <th>Otro Teléfono</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -32,11 +31,11 @@
                   <td>{{ client.email }}</td>
                   <td>{{ client.dui }}</td>
                   <td>{{ client.cellphone }}</td>
-                  <td>{{ client.otherCellphone }}</td>
                   <td>
                     <div class="d-flex">
-                      <button class="btn btn-primary btn-sm me-2">Editar</button>
-                      <button class="btn btn-danger btn-sm">Eliminar</button>
+                      <button class="btn btn-primary btn-sm me-2" (click)="update(client.id)">Editar</button>
+                      <button class="btn btn-danger btn-sm"(click)="deleteCliend(client.id)">Eliminar</button>
+                      <a  (click)="seeInfo(client.id)" class="btn btn-info btn-sm ms-2">Detalles</a>
                     </div>
                   </td>
                 </tr>

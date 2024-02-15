@@ -17,6 +17,11 @@ export interface UpdateRole {
   status: string
 }
 
+export interface DeleteRole {
+  statusCode: number,
+  message: '',
+  data: number
+}
 
 export interface GetRoles extends Omit<GetRole, 'data'>{
   data: Array<Role>

@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import {Role,GetRoles,GetRole,UpdateRole} from '../../models/role.model';
+import {Role,GetRoles, DeleteRole,GetRole,UpdateRole} from '../../models/role.model';
 import {RoleService} from  '../../services/role/role.service'
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -10,6 +10,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent {
+
+  searchTerm = ''
+
   @Input() roles: GetRoles = {
     statusCode: 0,
     message: '',
@@ -19,6 +22,12 @@ export class RoleComponent {
       status: ''
     }]
 
+  }
+
+  deleteRole: DeleteRole = {
+    statusCode: 0,
+    message:'',
+    data: 0
   }
 
   selectedRole: GetRole ={
@@ -39,6 +48,73 @@ export class RoleComponent {
     private roleService: RoleService,
     private router: Router
   ) {};
+
+  getRoles(){
+    this.roleService.getRoles().subscribe(
+      (data)=>{
+        this.roles = data
+        console.log(this.roles.data);
+
+      },
+      (error)=>{
+        console.error('error al obtener los roles', error);
+        if (error.status == 409) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'el rol ya existe',
+            timer: 2000
+          })
+        }
+      }
+    )
+  }
+
+
+  delete(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro de eliminar este rol?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.roleService.deleteRole(id).subscribe(
+          (response: DeleteRole) => {
+            // Manejar la respuesta del servicio
+            console.log(response);
+            if (response.statusCode == 200) {
+              Swal.fire(
+                'Eliminado',
+                'El rol ha sido eliminado correctamente.',
+                'success'
+              );
+              // Aquí puedes actualizar la lista de roles si es necesario
+            } else {
+              Swal.fire(
+                'Error',
+                'No se pudo eliminar el rol.',
+                'error'
+              );
+            }
+          },
+          (error) => {
+            console.error('Error al eliminar el rol', error);
+            Swal.fire(
+              'Error',
+              'Ocurrió un error al eliminar el rol.',
+              'error'
+            );
+          }
+        );
+      }
+    });
+  }
+
 
 
   update(id: number) {

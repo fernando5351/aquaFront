@@ -9,7 +9,7 @@
         </div>
         <div class="card-body" style="max-height: 400px; overflow-y: auto;">
           <!-- Agrega el formulario de Angular con formGroup -->
-          <form [formGroup]="form" (submit)="sendRequest($event)">
+          <form [formGroup]="form" enctype="multipart/form-data">
             <div class="mb-3">
               <label for="name" class="form-label">Nombre:</label>
               <!-- Vincula el campo con el control del formulario -->

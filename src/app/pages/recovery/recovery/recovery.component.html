@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2>Enviar Correo Electrónico para recuperar la contraseña</h2>
+      <form [formGroup]="form" >
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" formControlName="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="sendRequest($event)">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

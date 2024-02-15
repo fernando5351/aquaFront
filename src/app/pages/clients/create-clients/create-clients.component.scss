@@ -15,3 +15,11 @@
 .btn-primary:hover {
   background-color: #1e1f7a;
 }
+
+.has-error input {
+  border-color: red;
+}
+
+.select-error select {
+  border-color: red !important;
+}

@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="row justify-content-between mb-3">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">Meses</h1>
+    </div>
+    <div class="col-md-6 text-end">
+      <a href="/createMonth" class="btn btn-primary">Abrir nuevo mes</a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Desde</th>
+                  <th>Hasta</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let month of months">
+                  <td>{{ month.from | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ month.untill | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ month.status  === 'active' ? 'Activo' : 'Inactivo'}}</td>
+                  <td>
+                    <button *ngIf="month.status === 'active'" class="btn btn-danger btn-sm" (click)="closeMonth(month.id)">Cerrar Fecha</button>
+                    <button *ngIf="month.status === 'inactive'" class="btn btn-success btn-sm" (click)="detailsMonth(month.id)" >Detalles de mes</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

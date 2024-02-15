@@ -10,7 +10,10 @@ import Swal from 'sweetalert2';
 })
 export class GetClientsComponent implements OnInit {
 
+  placeholder = 'Buscar cliente...';
+
   clients: GetClients = {
+
     statusCode: 0,
     message: '',
     data: [{
@@ -18,10 +21,11 @@ export class GetClientsComponent implements OnInit {
       name: '',
       email: '',
       password: '',
+      amountId: 0,
       dui: '',
       cellphone: '',
-      otherCellphone: '',
-      createdAt: ''
+      otherCellphone: 0,
+      createdAt: new Date()
     }]
   };
 
@@ -51,10 +55,11 @@ export class GetClientsComponent implements OnInit {
     );
   }
 
-  searchChange(name: string): void {
+  searchChange(name: string) {
     if (name.length > 0) {
       this.clientService.search(name).subscribe((response) => {
         this.clients.data = response.data;
+        console.log();
       });
     } else {
       this.getClients();
