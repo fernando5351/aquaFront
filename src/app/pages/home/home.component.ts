@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexStroke, ApexDataLabels, ApexYAxis, ApexTitleSubtitle, ApexLegend, ApexNonAxisChartSeries, ApexResponsive } from 'ng-apexcharts';
-import { Payment } from 'src/app/models/payment.model';
+import { Payment, Report } from 'src/app/models/payment.model';
 import { PaymentService } from 'src/app/services/payment/payment.service';
 
 export type ChartOptions = {
@@ -18,21 +18,17 @@ export type ChartOptions = {
 export class HomeComponent implements OnInit{
 
   chartOptions!: ChartOptions;
-  payments: Payment[] = [{
-    id: 0,
-    invoiceCod: '',
-    clientId: 0,
-    addressId: 0,
-    month: '',
-    year: 0,
-    amountPayable: 0,
-    latePaymentAmount: 0,
-    totalAmount: 0,
-    status: '',
-    monthlyFeesId: 0,
-    createdAt: '',
-    canceledIn: ''
-  }]
+  report: Report = {
+    totalAmountCollected: 0,
+    summary: {
+      mora: 0,
+      paid: 0,
+      pending: 0
+    }
+  }
+
+  selectedStartDate!: string | null;
+  selectedEndDate!: string | null;
 
   dataSerie: number[] = [];
   constructor(
@@ -41,7 +37,23 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.actualizarGraficos();
-    this.getPayments();
+
+    let date = new Date();
+    let nowDay = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    let previusMonth;
+    if (month === 1) {
+        month = 12;
+        year = year - 1;
+    } else {
+        previusMonth = month - 1;
+    }
+
+    const startDate = new Date(`${year}-${previusMonth}-${nowDay}`);
+    const endDate = new Date(`${year}-${month}-${nowDay}`);
+    this.getPayments(startDate, endDate);
   }
 
   actualizarGraficos() {
@@ -68,42 +80,20 @@ export class HomeComponent implements OnInit{
     };
   }
 
-  getPayments() {
-    this.paymentService.getAllPayment().subscribe((response) => {
-      this.payments = response.data;
+  startDateChanged(event: MatDatepickerInputEvent<any>): void {
+    this.selectedStartDate = this.formatDate(event.value);
+    this.filterSales();
+  }
 
-      const totalMora = this.payments.reduce(function(accumulator: number, currentValue: Payment) {
-        console.log('status ' + currentValue.status + ' monto ' + currentValue.totalAmount);
-        if (currentValue.status === 'mora') {
-          return (Number(accumulator) + Number(currentValue.totalAmount));
-        } else {
-          return 0;
-        }
-      }, 0);
+  endDateChanged(event: MatDatepickerInputEvent<any>): void {
+    this.selectedEndDate = this.formatDate(event.value);
+    this.filterSales();
+  }
 
-      const totalPaid = this.payments.reduce(function(accumulator: number, currentValue: Payment) {
-        console.log('status ' + currentValue.status + ' monto ' + currentValue.totalAmount);
-        if (currentValue.status === 'paid') {
-          return (Number(accumulator) + Number(currentValue.totalAmount));
-        } else {
-          return 0;
-        }
-      }, 0);
-
-      const totalPending = this.payments.reduce(function(accumulator: number, currentValue: Payment) {
-        console.log('status ' + currentValue.status + ' monto ' + currentValue.totalAmount);
-        if (currentValue.status === 'pending') {
-          return (Number(accumulator) + Number(currentValue.totalAmount));
-        } else {
-          return 0;
-        }
-      }, 0);
-
-      this.dataSerie.push(totalMora);
-      this.dataSerie.push(totalPaid);
-      this.dataSerie.push(totalPending);
-      console.log('Total pagado: ', totalPaid);
-      console.log('Total pendiente: ', totalPending);
+  getPayments(from: Date, untill: Date) {
+    this.paymentService.getReportPayment(from, untill).subscribe((response) => {
+      this.report = response.data;
+      this.dataSerie.push(this.report.summary.mora)
       this.actualizarGraficos();
     })
   }

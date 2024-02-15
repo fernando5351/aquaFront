@@ -26,6 +26,19 @@ export interface getPayment {
   data: Payment[];
 }
 
+export interface Report {
+  totalAmountCollected: number,
+  summary: {
+      paid: number,
+      mora: number,
+      pending: number
+  }
+}
+
+export interface getReport extends  Omit<getPayment, 'data'>{
+  data: Report
+}
+
 export interface PaymentMonthlyFee {
   id: number;
   from: string;
