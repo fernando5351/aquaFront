@@ -14,7 +14,7 @@ export type ChartOptions = {
 };
 
 interface status {
-  value: string;
+  value: string | undefined;
   viewValue: string;
 }
 
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit{
 
   chartOptions!: ChartOptions;
   status: status[] = [
+    {value: undefined, viewValue: 'Omitir'},
     {value: 'paid', viewValue: 'Pagado'},
     {value: 'pending', viewValue: 'Pendiente'},
     {value: 'mora', viewValue: 'Mora'},
@@ -71,8 +72,10 @@ export class HomeComponent implements OnInit{
     }]
   }
 
-  selectedStartDate!: string | null;
-  selectedEndDate!: string | null;
+  selectedStartDate: string | null = null;
+  selectedEndDate: string | null = null;
+  selectedStatus: 'paid'|'pending'|'mora'|undefined = undefined
+
   // maxDate: Date = new Date();
   maxDate = '2024-10-10';
   minDate = '2024-01-01';
@@ -155,8 +158,8 @@ export class HomeComponent implements OnInit{
     this.filterSales();
   }
 
-  reportSale(from: Date, untill: Date) {
-    this.paymentService.getReportPayment(from, untill).subscribe((response) => {
+  reportSale(from: Date, untill: Date, status?: 'paid'|'pending'|'mora') {
+    this.paymentService.getReportPayment(from, untill, status).subscribe((response) => {
       this.report = response.data;
       console.log(response);
 
@@ -168,11 +171,25 @@ export class HomeComponent implements OnInit{
     })
   }
 
+  onStatusChange(event: any) {
+    this.selectedStatus = event.value;
+    this.filterSales();
+  }
+
   private filterSales(): void {
+    if (this.selectedStartDate !== null && this.selectedEndDate !== null && this.selectedStatus !== undefined) {
+      let from  = new Date(this.selectedStartDate);
+      let until = new Date(this.selectedEndDate);
+      console.log('status: '+ this.selectedStatus);
+
+      this.reportSale(from, until, this.selectedStatus);
+      return;
+    }
     if (this.selectedStartDate !== null && this.selectedEndDate !== null) {
       let from  = new Date(this.selectedStartDate);
       let until = new Date(this.selectedEndDate);
       this.reportSale(from, until);
+      return;
     }
   }
 }
