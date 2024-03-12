@@ -17,7 +17,7 @@ export class ClientsComponent {
     data: [{
       id: 0,
       name: '',
-      amountId: 0,
+      amountId: [],
       email: '',
       password: '',
       dui: '',

@@ -5,6 +5,8 @@ export interface Amount {
   createdAt: Date;
 }
 
+export interface listAmountSelected extends Omit<Amount, 'createdAt'> {}
+
 export interface CreateAmount extends  Omit<Amount, 'id' | 'createdAt'> {}
 
 export interface Get {

@@ -3,6 +3,28 @@
   transition: color 0.3s ease-in-out;
 }
 
-.navbar-nav .nav-link:hover {
+.navbar-nav .nav-link:hover{
   color: #f8f9fa !important;
+}
+
+.offcanvas-header{
+  color: #f8f9fa !important;
+}
+
+.btn-close {
+  color: #fff !important;
+}
+
+.offcanvas {
+  background-color: #3134cb; /* Cambia el color de fondo del offcanvas según tu preferencia */
+}
+
+/* Estilos adicionales para los enlaces en el offcanvas */
+.offcanvas-body .nav-link {
+  color: #f8f9fa; /* Cambia el color del texto de los enlaces dentro del offcanvas */
+  transition: color 0.3s ease-in-out;
+}
+
+.offcanvas-body .nav-link:hover {
+  color: #fff !important; /* Cambia el color del texto de los enlaces cuando se pasa el mouse sobre ellos */
 }

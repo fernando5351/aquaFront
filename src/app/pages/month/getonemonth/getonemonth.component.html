@@ -27,9 +27,9 @@
                 <td>{{ payment.Clients.name }}</td>
                 <td>{{ payment.Clients.dui }}</td>
                 <td>{{ payment.status }}</td>
-                <td>{{payment.amountPayable}}</td>
+                <td>{{payment.month}}</td>
                 <td>{{ payment.latePaymentAmount || 0 }}</td>
-                <td>{{ payment.amountPayable + (payment.latePaymentAmount || 0) }}</td>
+                <td>{{ payment.totalAmount + (payment.latePaymentAmount || 0) }}</td>
               </tr>
             </ng-container>
             <ng-template #noPayments>

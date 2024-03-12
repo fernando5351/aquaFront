@@ -20,7 +20,7 @@ export class MonthService {
 
   createMonth(dto: CreateMonth): Observable<GetMonth> {
     this.loadingService.showLoading();
-    return this.http.post<GetMonth>(`${this.url}`, dto).pipe(
+    return this.http.post<GetMonth>(`${this.url}/open`, dto).pipe(
       finalize(() => {
         this.loadingService.hideLoading();
       })

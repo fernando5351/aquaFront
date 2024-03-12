@@ -26,9 +26,9 @@
                   <td>{{ month.from | date:'dd/MM/yyyy' }}</td>
                   <td>{{ month.untill | date:'dd/MM/yyyy' }}</td>
                   <td>{{ month.status  === 'active' ? 'Activo' : 'Inactivo'}}</td>
-                  <td>
-                    <button *ngIf="month.status === 'active'" class="btn btn-danger btn-sm" (click)="closeMonth(month.id)">Cerrar Fecha</button>
-                    <button *ngIf="month.status === 'inactive'" class="btn btn-success btn-sm" (click)="detailsMonth(month.id)" >Detalles de mes</button>
+                  <td class="flex-lg-wrap">
+                    <button *ngIf="month.status === 'active'" class="btn btn-danger btn-sm mb-2" (click)="closeMonth(month.id)">Cerrar Fecha</button>
+                    <button class="btn btn-success btn-sm d-block" (click)="detailsMonth(month.id)" >Detalles de mes</button>
                   </td>
                 </tr>
               </tbody>

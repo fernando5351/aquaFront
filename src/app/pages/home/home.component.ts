@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit{
         email: '',
         dui: '',
         cellphone: '',
-        amountId: 0,
+        amountId: [],
         createdAt: new Date()
       }
     }]
@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit{
 
   selectedStartDate: string | null = null;
   selectedEndDate: string | null = null;
+  fromDate: Date = new Date();
   selectedStatus: 'paid'|'pending'|'mora'|undefined = undefined
 
   // maxDate: Date = new Date();
@@ -150,12 +151,27 @@ export class HomeComponent implements OnInit{
 
   startDateChanged(event: MatDatepickerInputEvent<any>): void {
     this.selectedStartDate = this.formatDate(event.value);
+    console.log(this.selectedStartDate);
+
+    let fecha = new Date(event.value);
+    fecha.setHours(0, 0, 0, 0);
+
+    this.fromDate = fecha;
     this.filterSales();
   }
 
   endDateChanged(event: MatDatepickerInputEvent<any>): void {
-    this.selectedEndDate = this.formatDate(event.value);
-    this.filterSales();
+      this.selectedEndDate = this.formatDate(event.value);
+      console.log(this.selectedEndDate);
+
+      let endDate = new Date(event.value);
+
+      endDate.setHours(23, 59, 59, 999);
+
+      this.selectedEndDate = this.formatDate(endDate);
+      console.log(this.selectedEndDate);
+
+      this.filterSales();
   }
 
   reportSale(from: Date, untill: Date, status?: 'paid'|'pending'|'mora') {
@@ -178,9 +194,8 @@ export class HomeComponent implements OnInit{
 
   private filterSales(): void {
     if (this.selectedStartDate !== null && this.selectedEndDate !== null && this.selectedStatus !== undefined) {
-      let from  = new Date(this.selectedStartDate);
+      let from  = new Date(this.fromDate);
       let until = new Date(this.selectedEndDate);
-      console.log('status: '+ this.selectedStatus);
 
       this.reportSale(from, until, this.selectedStatus);
       return;

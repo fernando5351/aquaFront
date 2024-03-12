@@ -20,15 +20,14 @@ export class GetmonthComponent implements OnInit {
   }
 
   getMonths() {
-    this.getMonthService.getMonths().subscribe(
-      (response) => {
+    this.getMonthService.getMonths().subscribe({
+      next: (response) => {
         this.months = response.data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al obtener los meses:', error);
-        // Agrega lógica para manejar el error
       }
-    );
+    });
   }
 
 

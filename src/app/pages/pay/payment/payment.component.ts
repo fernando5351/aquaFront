@@ -24,7 +24,7 @@ export class PaymentComponent implements OnInit {
     dui: '',
     cellphone: '',
     createdAt: new Date(),
-    amountId: 1,
+    amountId: [],
     Adress: [],
     Payment: []
   };
@@ -100,8 +100,10 @@ export class PaymentComponent implements OnInit {
         next: (response) => {
           console.log('Pago realizado exitosamente:', response);
           this.generateReceipt(payment);
-          const id = this.clientId; // Asegúrate de obtener el ID del cliente correctamente
-          this.router.navigate([`/infoclient/${id}`]);
+          setTimeout(() => {
+            const id = this.clientId;
+            window.location.href = `/infoclient/${id}`;
+          }, 1001);
         },
         error: (error) => {
           console.error('Error al realizar el pago:', error);

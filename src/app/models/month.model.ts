@@ -7,34 +7,50 @@ export interface Month {
   paymentMonthlyFee: PaymentMonthlyFee[];
 }
 
-export interface PaymentMonthlyFee {
+
+interface PaymentMonthlyFee {
   id: number;
-  invoiceCod: any;
+  invoiceCod: number | null;
   clientId: number;
-  addressId: number;
+  adressId: number;
   month: string;
   year: number;
-  amountPayable: number;
   latePaymentAmount: number;
   totalAmount: number;
   status: string;
   monthlyFeesId: number;
-  createdAt: Date;
-  canceledIn: any;
+  createdAt: string;
+  candledIn: string | null;
   Clients: Client;
 }
 
-export interface Client {
+interface Client {
   id: number;
   name: string;
   email: string;
-  password: any;
+  password: string | null;
   dui: string;
-  cellphone: number;
-  otherCellphone: any;
-  amountId: number;
-  createdAt: Date;
+  cellphone: string;
+  otherCellphone: string | null;
+  createdAt: string;
+  ClientAmounts: ClientAmount[];
 }
+
+interface ClientAmount {
+  id: number;
+  name: string;
+  amount: number;
+  createdAt: string;
+  Amounts: Amount;
+}
+
+interface Amount {
+  id: number;
+  clientId: number;
+  amountId: number;
+  createdAt: string;
+}
+
 export interface CreateMonth {
   from: Date;
   untill: Date;

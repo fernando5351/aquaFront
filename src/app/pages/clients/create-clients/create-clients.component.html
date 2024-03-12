@@ -1,7 +1,7 @@
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card">
+      <div class="card" style="max-height: 400px!important;">
         <div class="card-header bg-primary text-white">
           <h2 class="text-center mb-0">
             <i class="bi bi-person"></i> Crear Cliente
@@ -18,19 +18,46 @@
               <label for="email" class="form-label">Email:</label>
               <input type="email" formControlName="email" class="form-control" id="email" placeholder="Ingrese el correo electrónico del cliente">
             </div>
-            <div class="mb-3" [ngClass]="{ 'has-error': invalidDui }">
+            <div class="mb-3" [ngClass]="{ 'has-error': form.get('dui')?.errors?.['formatoInvalido'] }">
               <label for="dui" class="form-label">DUI:</label>
-              <input type="text" formControlName="dui" class="form-control" id="dui" placeholder="Ingrese el DUI del cliente">
+              <input type="text" formControlName="dui" class="form-control" id="dui" placeholder="Ingrese el DUI del cliente" (keydown)="onDuiKeyDown($event)">
+              <div *ngIf="form.get('dui')?.errors?.['formatoInvalido']" class="text-danger">
+                {{errorOnDui}}
+              </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" [ngClass]="{ 'has-error': form.get('cellphone')?.errors?.['formatoInvalido'] }">
               <label for="phone" class="form-label">Teléfono:</label>
-              <input type="text" formControlName="cellphone" class="form-control" id="phone" placeholder="Ingrese el teléfono del cliente">
+              <input type="text" formControlName="cellphone" class="form-control" id="phone" placeholder="Ingrese el teléfono del cliente" (keydown)="onCellphoneKeyDown($event)">
+              <div *ngIf="form.get('dui')?.errors?.['formatoInvalido']" class="text-danger">
+                {{errorOnCellphone}}
+              </div>
             </div>
             <div class="mb-3" [ngClass]="{ 'select-error': invalidAmountId }">
-              <label for="phone" class="form-label">Cuota a cancelar:</label>
-              <select class="form-control" id="amountId" formControlName="amountId">
-                <option *ngFor="let amountOption of amount" [value]="amountOption.id">{{ amountOption.name }} ${{ amountOption.amount }}</option>
+              <label for="phone" class="form-label">Cuotas a cancelar:</label>
+              <select class="form-control" id="amountId" formControlName="amountId" (change)="addToAmounts()">
+                  <option value="">Seleccione...</option>
+                  <option *ngFor="let amountOption of amount" [value]="amountOption.id">{{ amountOption.name }} ${{ amountOption.amount }}</option>
               </select>
+            </div>
+            <div class="mb-3" >
+              <table class="table" *ngIf="amounts.length > 0">
+                <thead>
+                  <tr>
+                    <th scope="col">Cuota</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Quitar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let amount of amounts">
+                    <tr *ngIf="amount.id !== 0">
+                        <td>{{amount.name}}</td>
+                        <td>${{amount.amount}}</td>
+                        <td><button (click)="deleteAmount(amount.id)" class="btn btn-danger">X</button></td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
             </div>
             <hr>
             <h4>Direcciones</h4>

@@ -8,15 +8,36 @@
       <p><strong>Teléfono:</strong> {{ clientInfo.data.cellphone }}</p>
 
     </div>
+
     <div class="col-md-6">
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item">
+            <ul class="list-group">
+              <li *ngFor="let address of clientInfo.data.Adress" class="list-group-item">
+                <p><strong>Calle:</strong> {{ address.streetName }}</p>
+                <p><strong>Número de Casa:</strong> {{ address.houseNumber }}</p>
+                <p><strong>Número de Polígono:</strong> {{ address.polygonNumber }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
       <h2>Direcciones</h2>
-      <ul class="list-group">
-        <li *ngFor="let address of clientInfo.data.Adress" class="list-group-item">
-          <p><strong>Calle:</strong> {{ address.streetName }}</p>
-          <p><strong>Número de Casa:</strong> {{ address.houseNumber }}</p>
-          <p><strong>Número de Polígono:</strong> {{ address.polygonNumber }}</p>
-        </li>
-      </ul>
+
     </div>
   </div>
   <div class="mt-4">
@@ -41,7 +62,9 @@
           <td>{{ payment.month }}</td>
           <td>{{ payment.year }}</td>
           <td>
-            {{ payment.status === 'paid' ? 'Pagado' : (payment.status === 'pending' ? 'Pendiente' : 'Mora') }}
+            <div class="{{ payment.status === 'paid' ? 'fondo-verde' : (payment.status === 'pending' ? 'fondo-rojo' : '') }}">
+              {{ payment.status === 'paid' ? 'Pagado' : (payment.status === 'pending' ? 'Pendiente' : 'Mora') }}
+            </div>
           </td>
           <td>{{payment.amountPayable}}</td>
           <td>{{ payment.latePaymentAmount || 0 }}</td>

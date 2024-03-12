@@ -26,15 +26,15 @@ export class GetonemonthComponent {
     }
 
     getMonthInfo() {
-      this.monthService.detailById(this.monthId).subscribe(
-        (data: GetMonth) => {
+      this.monthService.detailById(this.monthId).subscribe({
+        next: (data: GetMonth) => {
           this.month = data;
           console.log(this.month);
         },
-        (error) => {
+        error: (error) => {
           console.error('Error al obtener la información del mes', error);
         }
-      );
+      });
     }
 
 }

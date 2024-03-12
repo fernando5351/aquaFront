@@ -8,7 +8,7 @@ export interface Client {
   password?: string,
   dui: string,
   cellphone: string,
-  amountId: number;
+  amountId: number[];
   otherCellphone?: number,
   createdAt: Date;
   Adress?: Address[];

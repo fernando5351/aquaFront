@@ -30,7 +30,7 @@ export class NavbarComponent {
 
   logOut(){
     this.authService.logout();
-    this.router.navigate(['/login']);
+    window.location.href = '/login';
   }
 
 }

@@ -21,7 +21,7 @@ export class GetClientsComponent implements OnInit {
       name: '',
       email: '',
       password: '',
-      amountId: 0,
+      amountId: [],
       dui: '',
       cellphone: '',
       otherCellphone: 0,
